@@ -3,7 +3,7 @@
   remote_user: root
   gather_facts: false
   roles:
-    - ansible-role-piddns
+    - pipoe2h.piddns
   post_tasks:
     - name: Check ddclient has updated successfuly the dynamic DNS record
       wait_for:

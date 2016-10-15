@@ -2,7 +2,7 @@ PiDDNS
 =========
 
 This role install and configure your own Dynamic DNS service in a web hosting running CPanel and
-the dynamic dns client running in a Raspberry Pi with Raspbian
+the dynamic dns client running in a Raspberry Pi with Raspbian.
 
 Requirements
 ------------
@@ -15,7 +15,7 @@ Role Variables
 The variables that can be passed to this role and a brief description about
 them are as follows.
 
-[defaults/main.yml](defaults/main.yml))
+([defaults/main.yml](defaults/main.yml))
 
 ```yaml
 # Some of the ftp connection settings
@@ -27,7 +27,7 @@ ftp:
 
 ```
 
-[defaults/config.yml](defaults/config.yml))
+([defaults/config.yml](defaults/config.yml))
 
 ```yaml
 # CPanel configuration details
@@ -51,7 +51,7 @@ ftp:
 
 ```
 
-[defaults/passwords.yml](defaults/passwords.yml))
+[(defaults/passwords.yml](defaults/passwords.yml))
 
 ```yaml
 # You can use Ansible Vault to encrypt your password file. Also, change the file permissions to 0600

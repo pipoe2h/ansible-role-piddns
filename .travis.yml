@@ -22,7 +22,7 @@ install:
   - printf '[defaults]\nroles_path=../' >ansible.cfg
 
   # Re-download 
-  - git clone https://github.com/pipoe2h/ansible-role-piddns.git pipoe2h/$TRAVIS_REPO_SLUG
+  - git clone https://github.com/pipoe2h/ansible-role-piddns.git $TRAVIS_REPO_SLUG
   - cd $TRAVIS_REPO_SLUG
   - git checkout -qf $TRAVIS_COMMIT
 

@@ -25,6 +25,7 @@ install:
   - git clone https://github.com/pipoe2h/ansible-role-piddns.git $TRAVIS_REPO_SLUG
   - cd $TRAVIS_REPO_SLUG
   - git checkout -qf $TRAVIS_COMMIT
+  - pwd
 
 script:
   # Basic role syntax check

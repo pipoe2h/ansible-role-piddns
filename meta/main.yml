@@ -39,6 +39,7 @@ galaxy_info:
   
   galaxy_tags:
   - dyndns
+  - ddns
   - dns
   - ddclient
   - pi

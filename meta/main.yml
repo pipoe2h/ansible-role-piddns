@@ -25,7 +25,7 @@ galaxy_info:
   # branch will be accepted. Otherwise, in all cases, the repo's default branch
   # (usually master) will be used.
   github_branch:
-  - https://github.com/pipoe2h/ansible-role-piddns
+  - master
   
   #
   # Below are all platforms currently available. Just uncomment

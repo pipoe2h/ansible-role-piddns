@@ -1,0 +1,6 @@
+protocol=piddns
+use=web, web=checkip.dyndns.com/, web-skip='IP Address'
+server={{ dyndns.url }}
+login={{ dyndns.phpuser }}
+password='{{ dyndns.phppass }}'
+{{ dyndns.hostname }}

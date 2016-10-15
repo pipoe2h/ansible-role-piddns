@@ -7,7 +7,7 @@ the dynamic dns client running in a Raspberry Pi with Raspbian.
 Requirements
 ------------
 
-This role requires Ansible 2.0 or higher and the dynamic DNS record to update must be already created in your CPanel.
+This role requires Ansible 2.0 or higher and the dynamic DNS record to update must be already created in your CPanel. For a quicker propagation of your dynamic DNS record, configure that with TTL=60.
 
 Role Variables
 --------------

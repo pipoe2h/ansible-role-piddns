@@ -16,14 +16,14 @@
 #The username and password used by the updater to send the request.
 #HTTP Basic authentication
 $php_auth_user='{{ dyndns.phpuser }}';
-$php_auth_pw='{{ dyndns.phppass }}';
+$php_auth_pw='{{ dyndns_phppass }}';
 
 #The url of the cpanel server
 $dyndnsCpanel = '{{ cpanel.url }}';
 
 #username and password used to login to cpanel
 $dyndnsCpanelUser = '{{ cpanel.user }}';
-$dyndnsCpanelPass = '{{ cpanel.pass }}';
+$dyndnsCpanelPass = '{{ cpanel_pass }}';
 
 #the main domain name of the account on cpanel
 $dyndnsDomain = '{{ dyndns.domain }}';

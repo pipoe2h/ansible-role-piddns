@@ -1,5 +1,4 @@
 ---
-# tasks file for pipoe2h.piddns
 
 - name: Install packages
   apt:
@@ -15,7 +14,7 @@
 
 - name: Transfer the dyndns.php file into the Raspberry Pi
   template:
-    src: templates/dyndns.php.j2
+    src: "{{ role_path }}/templates/dyndns.php.j2"
     dest: /tmp/{{ dyndns.page }}
   when: webpage_check.status == 404
   register: upload
@@ -24,27 +23,27 @@
   shell: >
     lftp -c 'set ftp:ssl-allow true; set ssl:verify-certificate no; set ftp:ssl-force yes;
     open -u {{ ftp.user }} --env-password -e "mput -O {{ ftp.path }} /tmp/{{ dyndns.page }};
-    quit" {{ ftp.hostname }}:{{ ftp.port }}'
-  when:  upload.changed == true and ftp.secure == true
+    quit" {{ ftp.hostname }}:{{ ftp_port }}'
+  when:  upload.changed == true and ftp_secure == true
   environment:
-    LFTP_PASSWORD: "{{ ftp.pass }}"
+    LFTP_PASSWORD: "{{ ftp_pass }}"
   register: lftp_secure
 
 - name: Upload the dyndns.php file to your web hosting using unencrypted connection (UNSECURE)
   shell: >
     lftp -c 'set ftp:ssl-allow true; set ssl:verify-certificate no;
     open -u {{ ftp.user }} --env-password -e "mput -O {{ ftp.path }} /tmp/{{ dyndns.page }};
-    quit" {{ ftp.hostname }}:{{ ftp.port }}'
-  when: upload.changed == true and ftp.secure == false
+    quit" {{ ftp.hostname }}:{{ ftp_port }}'
+  when: upload.changed == true and ftp_secure == false
   environment:
-    LFTP_PASSWORD: "{{ ftp.pass }}"
+    LFTP_PASSWORD: "{{ ftp_pass }}"
   register: lftp_unsecure
 
 - name: Check if the PHP authentication is working
   uri:
     url: "http://{{ dyndns.url }}/{{ dyndns.page }}"
     user: "{{ dyndns.phpuser }}"
-    password: "{{ dyndns.phppass}}"
+    password: "{{ dyndns_phppass}}"
     return_content: yes
     force_basic_auth: yes
   register: php_auth
@@ -62,20 +61,20 @@
   shell: >
     lftp -c 'set ftp:ssl-allow true; set ssl:verify-certificate no; set ftp:ssl-force yes;
     open -u {{ ftp.user }} --env-password -e "get {{ ftp.path }}/.htaccess -o /tmp/;
-    quit" {{ ftp.hostname }}:{{ ftp.port }}'
-  when: ftp.secure == true and php_auth|failed
+    quit" {{ ftp.hostname }}:{{ ftp_port }}'
+  when: ftp_secure == true and php_auth|failed
   environment:
-    LFTP_PASSWORD: "{{ ftp.pass }}"
+    LFTP_PASSWORD: "{{ ftp_pass }}"
   register: download_secure
 
 - name: GET .htaccess to update (UNSECURE)
   shell: >
     lftp -c 'set ftp:ssl-allow true; set ssl:verify-certificate no;
     open -u {{ ftp.user }} --env-password -e "get {{ ftp.path }}/.htaccess -o /tmp/;
-    quit" {{ ftp.hostname }}:{{ ftp.port }}'
-  when: ftp.secure == false and php_auth|failed
+    quit" {{ ftp.hostname }}:{{ ftp_port }}'
+  when: ftp_secure == false and php_auth|failed
   environment:
-    LFTP_PASSWORD: "{{ ftp.pass }}"
+    LFTP_PASSWORD: "{{ ftp_pass }}"
   register: download_unsecure
 
 - name: Update .htaccess with PHP authentication requirements
@@ -92,25 +91,25 @@
   shell: >
     lftp -c 'set ftp:ssl-allow true; set ssl:verify-certificate no; set ftp:ssl-force yes;
     open -u {{ ftp.user }} --env-password -e "mput -O {{ ftp.path }} /tmp/.htaccess;
-    quit" {{ ftp.hostname }}:{{ ftp.port }}'
-  when: ftp.secure == true and php_auth|failed
+    quit" {{ ftp.hostname }}:{{ ftp_port }}'
+  when: ftp_secure == true and php_auth|failed
   environment:
-    LFTP_PASSWORD: "{{ ftp.pass }}"
+    LFTP_PASSWORD: "{{ ftp_pass }}"
 
 - name: Replace .htaccess in web hosting (UNSECURE)
   shell: >
     lftp -c 'set ftp:ssl-allow true; set ssl:verify-certificate no;
     open -u {{ ftp.user }} --env-password -e "mput -O {{ ftp.path }} /tmp/.htaccess;
-    quit" {{ ftp.hostname }}:{{ ftp.port }}'
-  when: ftp.secure == false and php_auth|failed
+    quit" {{ ftp.hostname }}:{{ ftp_port }}'
+  when: ftp_secure == false and php_auth|failed
   environment:
-    LFTP_PASSWORD: "{{ ftp.pass }}"
+    LFTP_PASSWORD: "{{ ftp_pass }}"
 
 - name: Check if the PHP authentication is working
   uri:
     url: "http://{{ dyndns.url }}/{{ dyndns.page }}"
     user: "{{ dyndns.phpuser }}"
-    password: "{{ dyndns.phppass}}"
+    password: "{{ dyndns_phppass}}"
     return_content: yes
   when: download_secure.changed == true or download_unsecure.changed == true
   register: php_auth

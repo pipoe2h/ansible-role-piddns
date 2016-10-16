@@ -1,5 +1,4 @@
 ---
-# tasks file for pipoe2h.piddns
 
 - name: Check if ddclient-piddns.conf file exists
   stat:
@@ -8,7 +7,7 @@
 
 - name: Transfer the ddclient.conf file into the Raspberry Pi
   template:
-    src: templates/ddclient.conf.j2
+    src: "{{ role_path }}/templates/ddclient.conf.j2"
     dest: /etc/ddclient.conf
     owner: root
     group: root
@@ -29,7 +28,7 @@
 
 - name: Transfer ddclient-piddns executable
   template:
-    src: templates/ddclient.j2
+    src: "{{ role_path }}/templates/ddclient.j2"
     dest: /usr/sbin/ddclient-piddns
     owner: root
     group: root

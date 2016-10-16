@@ -21,9 +21,8 @@ them are as follows.
 # Some of the ftp connection settings
 # ATTENTION: Turn false the secure setting can incurs on a high security risk since your credentials are passed out in plain text.
 # Change ONLY if web hosting provider doesn't support TLS.
-ftp:
-  port: 21
-  secure: true
+ftp_port: 21
+ftp_secure: true
 
 ```
 
@@ -56,14 +55,11 @@ ftp:
 ```yaml
 # You can use Ansible Vault to encrypt your password file. Also, change the file permissions to 0600
 # 	ansible-vault encrypt <role_path>/defaults/passwords.yml
-cpanel:
-  pass: "<your_cpanel_password>"
+cpanel_pass: "<your_cpanel_password>"
 
-dyndns:
-  phppass: "<your_dyndns_password>"
+dyndns_phppass: "<your_dyndns_password>"
 
-ftp:
-  pass: "<your_ftp_password>"
+ftp_pass: "<your_ftp_password>"
 ```
 
 Dependencies
